@@ -41,3 +41,22 @@ Currently, the simulation is rendered within the command line.
     - Receives two animals within the same grid space and will decide whether an encounter will result in breeding as long as the two animals are the same type and the animals achieve the required breed rating. If breeding cannot be achieved a fight will break out between the two animals in question.
 - Animals and their methods
     - Each animal type is created using a factory function. This factory function is responsible for giving the bounds to which combat points and health points are assigned. As well as, breed rating, attack method and type of animal.
+
+Currently, there are 8 types of animals:
+- dog
+- cat
+- bear
+- tiger
+- snake
+- rabbit
+- mouse
+- rabbit
+
+# How to run
+1. Clone the repo
+2. Run `npm install` - To install dependencies
+3. Make any adjustments in the `main.ts` for the type and number of each animal that you would like to generate.
+3. Run `npm run build` - To transpile the TypeScript to JavaScript
+4. Run `npm run start` - To start the simulation
+5. Watch who wins
+
