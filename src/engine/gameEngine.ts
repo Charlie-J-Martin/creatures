@@ -30,7 +30,7 @@ export interface GameEngine<C extends StringKeyedObject> extends EventEmitter {
 }
 
 export const createGameEngine = (
-    milliseconds: number = 0,
+    milliseconds: number,
     handlers: GameEngineHandlers
 ): GameEngine<GameEngineEvents> => {
     let tickCount = 0;

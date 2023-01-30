@@ -33,6 +33,7 @@
         "typescript": "^4.4.2"
     },
     "dependencies": {
-        "bunyan": "^1.8.15"
+        "bunyan": "^1.8.15",
+        "tty-table": "^4.1.6"
     }
 }

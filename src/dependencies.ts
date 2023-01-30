@@ -5,7 +5,7 @@ import { createTerrain } from './state/terrain';
 
 export const terrain = createTerrain();
 export const population = createPopulation();
-export const gameEngine = createGameEngine(1, {
+export const gameEngine = createGameEngine(250, {
     overPopulated: overPopulatedHandler,
     winner: winnerHandler,
 });

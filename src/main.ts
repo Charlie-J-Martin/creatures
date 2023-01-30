@@ -4,16 +4,16 @@ import { population, terrain } from './dependencies';
 import { render } from './render';
 
 function start() {
-    terrain.generate(25, 25);
+    terrain.generate(10, 10);
     population.setTerrain(terrain);
     population.setAnimals([
-        ...spawnAnimals('dog', 200),
-        ...spawnAnimals('cat', 20),
-        ...spawnAnimals('bear', 10),
-        ...spawnAnimals('tiger', 10),
-        ...spawnAnimals('snake', 10),
+        ...spawnAnimals('dog', 10),
+        ...spawnAnimals('cat', 10),
+        ...spawnAnimals('bear', 20),
+        ...spawnAnimals('tiger', 20),
+        ...spawnAnimals('snake', 50),
         ...spawnAnimals('rabbit', 10),
-        ...spawnAnimals('mouse', 10),
+        ...spawnAnimals('mouse', 100),
         ...spawnAnimals('panda', 10),
     ]);
     simulate();

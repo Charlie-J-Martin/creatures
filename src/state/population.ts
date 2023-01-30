@@ -3,7 +3,7 @@ import { shuffleArray } from '../lib';
 import { Animal, Pairing, Position } from '../types';
 import { Terrain, Tile } from './terrain';
 
-type Population = {
+export type Population = {
     setAnimals(animals: Animal[]): void;
     addAnimals(animals: Animal[]): void;
     getAnimals(): Animal[];
