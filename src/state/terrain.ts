@@ -60,9 +60,11 @@ export const createTerrain = (): Terrain => {
             const possibleNeighbours = positions
                 .filter((entry) => entry.toString() !== tile.toString())
                 .filter((position) => {
-                    for (const tile of allTiles) {
-                        return tile.toString() === position.toString();
-                    }
+                    return allTiles.some((tile) => {
+                        return (
+                            tile[0] === position[0] && tile[1] === position[1]
+                        );
+                    });
                 });
 
             positionCache.set(tile, possibleNeighbours);
