@@ -48,16 +48,57 @@ export const createPopulation = (): Population => {
             if (terrainIsSet(terrain)) {
                 this._animals.map((animal) => {
                     if (animal.position) {
-                        const possiblePositions = terrain
-                            .getNeighbours(animal.position!)
-                            .filter(
-                                (position) =>
-                                    this.getAnimalsByPosition(position).length <
-                                    2
-                            );
-                        animal.position = possiblePositions.length
-                            ? shuffleArray(possiblePositions)[0]
-                            : animal.position;
+                        if (
+                            this.getAnimalsByPosition(animal.position)
+                                .length === 2
+                        ) {
+                        } else {
+                            const possiblePositions = terrain
+                                .getNeighbours(animal.position!)
+                                .map((position) => ({
+                                    position,
+                                    animals:
+                                        this.getAnimalsByPosition(position),
+                                }))
+                                .filter(
+                                    (position) => position.animals.length <= 2
+                                );
+                            const emptyTiles = possiblePositions
+                                .filter(
+                                    (position) => position.animals.length === 0
+                                )
+                                .map((empty) =>
+                                    terrain
+                                        .getNeighbours(empty.position)
+                                        .filter(
+                                            (neighbour) =>
+                                                this.getAnimalsByPosition(
+                                                    neighbour
+                                                ).length === 1
+                                        )
+                                );
+                            if (emptyTiles.length > 0) {
+                                const compaitableAnimal =
+                                    this.getAnimalsByPosition(
+                                        emptyTiles.flat()[0]
+                                    );
+                                animal.position = emptyTiles.flat()[0];
+                                compaitableAnimal[0].position =
+                                    emptyTiles.flat()[0];
+                            } else {
+                                animal.position = possiblePositions.length
+                                    ? shuffleArray(possiblePositions).sort(
+                                          (a, b) =>
+                                              a.animals.length -
+                                              b.animals.length
+                                      )[0].position
+                                    : animal.position;
+                            }
+                            // Create EmptyTiles
+                            // Check the neighbours of the emptyTiles
+                            // Once we find an empty neighbour with one animal move both animals to that empty tile
+                            //
+                        }
                     }
                 });
             }

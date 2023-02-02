@@ -44,7 +44,7 @@ export const printTerrain = (terrain: Row[], population: Population) => {
             for (let i = 0; i <= 2 - entries.length; i++) {
                 entries.push('        ');
             }
-            return entries;
+            return entries.join('');
         });
     });
 
