@@ -26,6 +26,8 @@ export type Animal = {
     isAlive: boolean;
     breedability: number;
     position?: Position;
+    isUnderAttack: boolean;
+    isHunter: boolean;
 };
 
 export type Winner = Animal;

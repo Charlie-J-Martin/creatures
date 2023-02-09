@@ -8,6 +8,7 @@ export const spawnAnimals = (type: AnimalType, quantity: number): Animal[] => {
 };
 
 export const spawnAnimal = (type: AnimalType): Animal => {
+    const isUnderAttack = false;
     switch (type) {
         case 'cat':
             return {
@@ -17,6 +18,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.CLAW,
                 isAlive: true,
                 breedability: 0.3,
+                isUnderAttack,
+                isHunter: true,
             };
         case 'dog':
             return {
@@ -26,6 +29,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.BITE,
                 isAlive: true,
                 breedability: 0.2,
+                isUnderAttack,
+                isHunter: true,
             };
         case 'bear':
             return {
@@ -35,6 +40,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.HUG,
                 isAlive: true,
                 breedability: 0.05,
+                isUnderAttack,
+                isHunter: true,
             };
         case 'tiger':
             return {
@@ -44,6 +51,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.LUNGE,
                 isAlive: true,
                 breedability: 0.05,
+                isUnderAttack,
+                isHunter: true,
             };
         case 'snake':
             return {
@@ -53,6 +62,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.VENOMOUS_BITE,
                 isAlive: true,
                 breedability: 0.1,
+                isUnderAttack,
+                isHunter: true,
             };
         case 'rabbit':
             return {
@@ -62,6 +73,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.NIBBLE,
                 isAlive: true,
                 breedability: 0.5,
+                isUnderAttack,
+                isHunter: false,
             };
         case 'mouse':
             return {
@@ -71,6 +84,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.NIP,
                 isAlive: true,
                 breedability: 1,
+                isUnderAttack,
+                isHunter: false,
             };
         case 'panda':
             return {
@@ -80,6 +95,8 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 attackMethod: AttackMethods.BITE,
                 isAlive: true,
                 breedability: 0,
+                isUnderAttack,
+                isHunter: false,
             };
         default:
             ((type: never) => {

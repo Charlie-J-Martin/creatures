@@ -43,62 +43,33 @@ export const createPopulation = (): Population => {
         getAnimals() {
             return this._animals;
         },
+
+        // Will take an animals as a function (willApproach())
+        // Checks to see if its the same animal or isHunter
+        // Compaitable rating - Keep it simple
         moveAnimals() {
             const terrain = this._terrain;
             if (terrainIsSet(terrain)) {
+                this._animals.map((animal) => (animal.isUnderAttack = false));
                 this._animals.map((animal) => {
-                    if (animal.position) {
-                        if (
-                            this.getAnimalsByPosition(animal.position)
-                                .length === 2
-                        ) {
-                        } else {
-                            const possiblePositions = terrain
-                                .getNeighbours(animal.position!)
-                                .map((position) => ({
-                                    position,
-                                    animals:
-                                        this.getAnimalsByPosition(position),
-                                }))
-                                .filter(
-                                    (position) => position.animals.length <= 2
-                                );
-                            const emptyTiles = possiblePositions
-                                .filter(
-                                    (position) => position.animals.length === 0
-                                )
-                                .map((empty) =>
-                                    terrain
-                                        .getNeighbours(empty.position)
-                                        .filter(
-                                            (neighbour) =>
-                                                this.getAnimalsByPosition(
-                                                    neighbour
-                                                ).length === 1
-                                        )
-                                );
-                            if (emptyTiles.length > 0) {
-                                const compaitableAnimal =
-                                    this.getAnimalsByPosition(
-                                        emptyTiles.flat()[0]
-                                    );
-                                animal.position = emptyTiles.flat()[0];
-                                compaitableAnimal[0].position =
-                                    emptyTiles.flat()[0];
-                            } else {
-                                animal.position = possiblePositions.length
-                                    ? shuffleArray(possiblePositions).sort(
-                                          (a, b) =>
-                                              a.animals.length -
-                                              b.animals.length
-                                      )[0].position
-                                    : animal.position;
-                            }
-                            // Create EmptyTiles
-                            // Check the neighbours of the emptyTiles
-                            // Once we find an empty neighbour with one animal move both animals to that empty tile
-                            //
-                        }
+                    if (animal.position && !animal.isUnderAttack) {
+                        const possiblePositions = terrain
+                            .getNeighbours(animal.position!)
+                            .map((tile) => ({
+                                animals: this.getAnimalsByPosition(tile),
+                                tile,
+                            }))
+                            .filter((position) => position.animals.length < 2);
+                        animal.position = possiblePositions.length
+                            ? shuffleArray(possiblePositions).sort((a, b) =>
+                                  animal.isHunter
+                                      ? b.animals.length - a.animals.length
+                                      : a.animals.length - b.animals.length
+                              )[0].tile
+                            : animal.position;
+                        this.getAnimalsByPosition(animal.position!).map(
+                            (animal) => (animal.isUnderAttack = true)
+                        );
                     }
                 });
             }
