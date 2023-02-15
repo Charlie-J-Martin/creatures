@@ -19,6 +19,7 @@ export const calculatePopulation = (animals: Animal[]) => {
             counts[animalsKind[i]] = 1 + (counts[animalsKind[i]] || 0);
         }
         process.stdout.write(JSON.stringify(counts) + '');
+        console.log(counts);
         return counts;
     };
     return countUnique(animalsKind);

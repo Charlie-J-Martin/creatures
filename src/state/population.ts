@@ -44,9 +44,6 @@ export const createPopulation = (): Population => {
             return this._animals;
         },
 
-        // Will take an animals as a function (willApproach())
-        // Checks to see if its the same animal or isHunter
-        // Compaitable rating - Keep it simple
         moveAnimals() {
             const terrain = this._terrain;
             if (terrainIsSet(terrain)) {
@@ -60,13 +57,41 @@ export const createPopulation = (): Population => {
                                 tile,
                             }))
                             .filter((position) => position.animals.length < 2);
-                        animal.position = possiblePositions.length
-                            ? shuffleArray(possiblePositions).sort((a, b) =>
-                                  animal.isHunter
-                                      ? b.animals.length - a.animals.length
-                                      : a.animals.length - b.animals.length
-                              )[0].tile
-                            : animal.position;
+
+                        if (possiblePositions.length === 0) {
+                            animal.position = animal.position;
+                        } else {
+                            // getMatches (animal, possiblePositions)
+                            // Returns a filtered list of only compaitable animals
+                            // Use [] to find bottlenecks
+                            const matches = possiblePositions
+                                .map((tile) => {
+                                    return {
+                                        tile: tile.tile,
+                                        animals: tile.animals.filter(
+                                            (neighbour) =>
+                                                animal.attractedTo.includes(
+                                                    neighbour.kind
+                                                )
+                                        ),
+                                    };
+                                })
+                                .filter((tile) => tile.animals.length > 0);
+
+                            // console.log({ possiblePositions, matches });
+
+                            const finalPositions = matches.length
+                                ? matches
+                                : possiblePositions;
+
+                            // getNewPosition( currentAniaml, possOpot)
+                            animal.position =
+                                shuffleArray(finalPositions).sort((a, b) =>
+                                    animal.isHunter
+                                        ? b.animals.length - a.animals.length
+                                        : a.animals.length - b.animals.length
+                                )[0].tile ?? animal.position;
+                        }
                         this.getAnimalsByPosition(animal.position!).map(
                             (animal) => (animal.isUnderAttack = true)
                         );

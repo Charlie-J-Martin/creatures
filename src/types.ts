@@ -28,6 +28,7 @@ export type Animal = {
     position?: Position;
     isUnderAttack: boolean;
     isHunter: boolean;
+    attractedTo: AnimalType[];
 };
 
 export type Winner = Animal;

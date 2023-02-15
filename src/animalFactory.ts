@@ -20,6 +20,7 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 0.3,
                 isUnderAttack,
                 isHunter: true,
+                attractedTo: ['rabbit', 'mouse', 'cat'],
             };
         case 'dog':
             return {
@@ -31,6 +32,7 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 0.2,
                 isUnderAttack,
                 isHunter: true,
+                attractedTo: ['rabbit', 'mouse', 'cat', 'dog'],
             };
         case 'bear':
             return {
@@ -42,6 +44,7 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 0.05,
                 isUnderAttack,
                 isHunter: true,
+                attractedTo: ['rabbit', 'mouse', 'cat', 'snake', 'dog', 'bear'],
             };
         case 'tiger':
             return {
@@ -53,6 +56,16 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 0.05,
                 isUnderAttack,
                 isHunter: true,
+                attractedTo: [
+                    'rabbit',
+                    'mouse',
+                    'cat',
+                    'snake',
+                    'bear',
+                    'panda',
+                    'dog',
+                    'tiger',
+                ],
             };
         case 'snake':
             return {
@@ -64,6 +77,7 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 0.1,
                 isUnderAttack,
                 isHunter: true,
+                attractedTo: ['rabbit', 'mouse', 'cat', 'dog', 'snake'],
             };
         case 'rabbit':
             return {
@@ -75,6 +89,7 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 0.5,
                 isUnderAttack,
                 isHunter: false,
+                attractedTo: ['rabbit'],
             };
         case 'mouse':
             return {
@@ -86,6 +101,7 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 1,
                 isUnderAttack,
                 isHunter: false,
+                attractedTo: ['mouse'],
             };
         case 'panda':
             return {
@@ -97,6 +113,7 @@ export const spawnAnimal = (type: AnimalType): Animal => {
                 breedability: 0,
                 isUnderAttack,
                 isHunter: false,
+                attractedTo: ['panda'],
             };
         default:
             ((type: never) => {

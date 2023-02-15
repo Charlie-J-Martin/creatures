@@ -13,7 +13,7 @@ function start() {
         ...spawnAnimals('tiger', 20),
         ...spawnAnimals('snake', 5),
         ...spawnAnimals('rabbit', 10),
-        ...spawnAnimals('mouse', 10),
+        ...spawnAnimals('mouse', 70),
         ...spawnAnimals('panda', 10),
     ]);
     simulate();
