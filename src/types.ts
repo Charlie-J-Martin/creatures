@@ -1,3 +1,5 @@
+import { Tile } from './state/terrain';
+
 export type AnimalType =
     | 'dog'
     | 'cat'
@@ -45,3 +47,8 @@ export type AnimalPopulation = {
 };
 
 export type Position = [number, number];
+
+export type PossiblePosition = {
+    animals: Animal[];
+    tile: Tile;
+};

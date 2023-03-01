@@ -9,7 +9,7 @@ export type Terrain = {
     tiles: Row[];
     generate: (width: number, height: number) => void;
     flat: () => Tile[];
-    getNeighbours: (tile: Tile) => Tile[];
+    getNeighbouringTiles: (tile: Tile) => Tile[];
 };
 
 export const boundaries = {
@@ -45,7 +45,7 @@ export const createTerrain = (): Terrain => {
         flat() {
             return this.tiles.flat();
         },
-        getNeighbours(tile: Tile) {
+        getNeighbouringTiles(tile: Tile) {
             const cached = positionCache.get(tile);
             if (cached) {
                 return cached;
