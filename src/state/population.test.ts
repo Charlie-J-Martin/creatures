@@ -1,7 +1,7 @@
 import { createPopulation, getTilePos } from './population';
 import { spawnAnimal, spawnAnimals } from '../animalFactory';
-import { createTerrain, Terrain } from './terrain';
-import { Position } from '../types';
+import { createTerrain } from './terrain';
+import { PossiblePosition } from '../types';
 
 test('Should get a random index position', () => {
     expect(getTilePos(25)).toBeGreaterThanOrEqual(0);
@@ -87,5 +87,59 @@ describe('Create population', () => {
         cat2.position = [1, 1];
         population._animals = [cat1, cat2];
         expect(population.getAnimalsByPosition([1, 1])).toEqual([cat1, cat2]);
+    });
+    test('getPossiblePositions', () => {
+        const terrain = createTerrain();
+        const population = createPopulation();
+        terrain.generate(3, 3);
+        population.setTerrain(terrain);
+        const cat1 = spawnAnimal('cat');
+        cat1.position = [1, 1];
+        population._animals = [cat1];
+        expect(
+            population.getPossiblePositions(cat1, population._terrain!)
+        ).toEqual([
+            { animals: [], tile: [0, 0] },
+            { animals: [], tile: [0, 1] },
+            { animals: [], tile: [1, 0] },
+        ]);
+    });
+
+    test('getMatches', () => {
+        const population = createPopulation();
+        const cat1 = spawnAnimal('cat');
+        cat1.position = [1, 1];
+        const cat2 = spawnAnimal('cat');
+        cat2.position = [2, 2];
+        const possiblePositions: PossiblePosition[] = [
+            { animals: [], tile: [0, 0] },
+            { animals: [], tile: [0, 1] },
+            { animals: [], tile: [0, 2] },
+            { animals: [], tile: [1, 0] },
+            { animals: [], tile: [1, 2] },
+            { animals: [], tile: [2, 0] },
+            { animals: [], tile: [2, 1] },
+            { animals: [cat2], tile: [2, 2] },
+        ];
+        expect(population.getMatches(cat1, possiblePositions)).toEqual([
+            { animals: [cat2], tile: [2, 2] },
+        ]);
+    });
+
+    test('getNewPosition', () => {
+        const population = createPopulation();
+        const cat1 = spawnAnimal('cat');
+        cat1.position = [1, 1];
+        const cat2 = spawnAnimal('cat');
+        cat2.position = [2, 2];
+        const finalPositions: PossiblePosition[] = [
+            { animals: [cat2], tile: [2, 2] },
+        ];
+        expect(population.getMatches(cat1, finalPositions)).toEqual([
+            {
+                animals: [cat2],
+                tile: [2, 2],
+            },
+        ]);
     });
 });
